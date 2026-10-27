@@ -9,6 +9,7 @@ import avatar from "@/assets/avatar.jpg";
 import crystal from "@/assets/crystal.png";
 import bg from "@/assets/bg.jpg";
 import village from "@/assets/village.jpg";
+import iceCube from "@/assets/ice-cube.png";
 
 export const IMG = { avatar, crystal };
 
@@ -105,8 +106,9 @@ function BottomNav() {
                 <img src={t.icon} alt="" width={40} height={40} className="relative h-10 w-10 object-contain drop-shadow-[0_3px_3px_oklch(0_0_0/0.7)] grayscale-[35%] group-data-[status=active]:grayscale-0" />
               </span>
             ) : (
-              <span className="-mt-11 grid h-[72px] w-[72px] animate-floaty place-items-center rounded-full border-[3px] border-ice [border-bottom-color:var(--frost)] bg-[radial-gradient(circle_at_50%_35%,color-mix(in_oklab,var(--cyan)_45%,var(--deep)),var(--deep))] shadow-[0_6px_0_var(--ice-depth-dark),0_0_26px_var(--cyan),inset_0_3px_0_oklch(1_0_0/0.6)]">
-                <img src={crystal} alt="" className="h-14 w-14 animate-shimmer object-contain" />
+              <span className="-mt-12 grid h-[76px] w-[76px] animate-floaty place-items-center">
+                <span className="absolute h-14 w-14 rounded-full bg-cyan/40 blur-xl" />
+                <img src={iceCube} alt="" width={76} height={76} className="relative h-[76px] w-[76px] object-contain drop-shadow-[0_6px_6px_oklch(0_0_0/0.7)] transition-transform duration-300 group-data-[status=active]:scale-110" />
               </span>
             )}
             <span className="font-display tracking-wide group-data-[status=active]:[text-shadow:0_0_8px_var(--cyan)]">{t.label}</span>

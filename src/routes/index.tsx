@@ -4,7 +4,7 @@ import icEarn from "@/assets/ic-earn.png";
 import icWallet from "@/assets/ic-wallet.png";
 import icInvite from "@/assets/ic-invite.png";
 import crystal from "@/assets/crystal.png";
-import wood from "@/assets/wood.jpg";
+import iceTex from "@/assets/ice-tex.jpg";
 import chest from "@/assets/chest.png";
 import tools from "@/assets/tools.png";
 import wheel from "@/assets/wheel.png";
@@ -29,8 +29,9 @@ function Home() {
   return (
     <>
       {/* Balance */}
-      <section className="snow-cap relative overflow-visible rounded-2xl border-[5px] border-[oklch(0.58_0.11_65)] [border-bottom-color:oklch(0.38_0.08_55)] shadow-[0_7px_0_oklch(0.25_0.05_50),0_14px_26px_oklch(0_0_0/0.6),0_0_22px_color-mix(in_oklab,var(--gold)_35%,transparent),inset_0_0_0_2px_oklch(0.82_0.1_80/0.6)]">
-        <img src={wood} alt="" className="absolute inset-0 h-full w-full rounded-xl object-cover" />
+      <section className="snow-cap relative overflow-visible rounded-2xl border-[4px] border-[oklch(0.92_0.07_215)] [border-bottom-color:oklch(0.45_0.16_248)] shadow-[0_7px_0_var(--ice-depth-dark),0_14px_26px_oklch(0_0_0/0.6),0_0_26px_color-mix(in_oklab,var(--cyan)_55%,transparent),inset_0_0_24px_color-mix(in_oklab,var(--cyan)_45%,transparent)]">
+        <img src={iceTex} alt="" className="absolute inset-0 h-full w-full rounded-xl object-cover opacity-70" />
+        <div className="absolute inset-0 rounded-xl bg-[linear-gradient(160deg,oklch(0.55_0.16_235/0.55),oklch(0.16_0.08_258/0.85))]" />
         <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-background/20 to-background/60" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 rounded-t-xl bg-gradient-to-b from-crystal/35 to-transparent" />
         <Icicles />
