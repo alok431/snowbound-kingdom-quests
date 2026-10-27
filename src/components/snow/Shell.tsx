@@ -127,7 +127,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
       </div>
       <Snowfall />
-      <div className="mx-auto max-w-[480px] pb-28">
+      <div className="mx-auto max-w-[480px] pb-36">
         <div className="relative h-20 overflow-hidden">
           <img src={village} alt="" className="h-full w-full object-cover object-[70%_40%]" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
