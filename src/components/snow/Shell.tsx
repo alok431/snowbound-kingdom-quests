@@ -92,13 +92,13 @@ const tabs = [
 function BottomNav() {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[480px] px-2 pb-[max(env(safe-area-inset-bottom),8px)]">
-      <div className="ice-panel snow-cap icicles relative grid grid-cols-5 items-end !bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
+      <div className="ice-panel snow-cap snow-thin icicles relative grid grid-cols-5 items-end !bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
           <span className="animate-dock absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-crystal/25 to-transparent" />
         </div>
         {tabs.map((t) => (
           <Link key={t.to} to={t.to} activeOptions={{ exact: true }}
-            className="group relative flex flex-col items-center gap-0.5 text-xs text-ice/75 data-[status=active]:text-cyan">
+            className="group relative flex flex-col items-center outline-none focus-visible:[&>span:first-child]:ring-2 focus-visible:[&>span:first-child]:ring-cyan rounded-xl gap-0.5 text-xs text-ice/75 data-[status=active]:text-cyan">
             {t.icon ? (
               <span className="relative grid h-10 w-10 place-items-center transition-transform duration-300 group-data-[status=active]:-translate-y-2 group-data-[status=active]:animate-[rise_.5s_ease-out]">
                 <span className="absolute inset-0 rounded-full opacity-0 shadow-[0_0_20px_6px_var(--cyan)] transition group-data-[status=active]:opacity-60" />
@@ -127,7 +127,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
       </div>
       <Snowfall />
-      <div className="mx-auto max-w-[480px] pb-28">
+      <div className="mx-auto max-w-[480px] pb-36">
         <div className="relative h-20 overflow-hidden">
           <img src={village} alt="" className="h-full w-full object-cover object-[70%_40%]" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />

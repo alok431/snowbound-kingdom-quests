@@ -9,6 +9,7 @@ import chest from "@/assets/chest.png";
 import tools from "@/assets/tools.png";
 import wheel from "@/assets/wheel.png";
 import village from "@/assets/village.jpg";
+import lantern from "@/assets/lantern.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,12 +36,12 @@ function Home() {
         <Icicles />
         <Lantern className="left-1.5" />
         <Lantern className="right-1.5" />
-        <div className="relative flex items-center gap-2 px-8 py-6">
+        <div className="relative flex items-center gap-2 px-10 py-6">
           <img src={crystal} alt="" className="h-20 w-16 shrink-0 animate-shimmer object-contain" />
           <div className="min-w-0 flex-1 text-center">
             <p className="text-3d text-sm tracking-wide">YOUR BALANCE</p>
             <p className="font-display text-5xl leading-none text-gold-grad">5,680 <span className="text-2xl">IQ</span></p>
-            <p className="mt-1 text-sm text-ice/90">≈ $0.56 (0.59 TON)</p>
+            <p className="mt-1.5 inline-block rounded-full border border-crystal/40 bg-background/60 px-3 py-0.5 text-sm text-ice/90">≈ $0.56 (0.59 TON)</p>
           </div>
         </div>
       </section>
@@ -121,7 +122,7 @@ function MiniCard({ img, title, sub, cta, to, spin }: { img: string; title: stri
 function Lantern({ className }: { className: string }) {
   return (
     <div className={`absolute top-1/2 z-[3] -translate-y-1/2 ${className}`}>
-      <div className="h-8 w-5 rounded-md border-2 border-[oklch(0.3_0.04_55)] bg-gold shadow-[0_0_18px_6px_color-mix(in_oklab,var(--gold)_60%,transparent)]" />
+      <img src={lantern} alt="" width={28} height={42} className="h-11 w-auto drop-shadow-[0_0_14px_var(--gold)] animate-shimmer" />
     </div>
   );
 }

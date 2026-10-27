@@ -31,7 +31,7 @@ function Account() {
         <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
           <Avatar size={76} />
           <div className="min-w-0">
-            <p className="truncate font-display text-xl">Snow Explorer</p>
+            <p className="truncate text-3d text-xl">Snow Explorer</p>
             <p className="truncate text-sm text-crystal">@snowquest_user</p>
             <p className="text-xs text-ice/75">Player ID: 123456789</p>
           </div>
@@ -44,25 +44,23 @@ function Account() {
         </div>
       </section>
 
-      <section className="ice-panel grid grid-cols-3 divide-x divide-frost/60 py-3 text-center">
+      <section className="ice-panel panel-royal grid grid-cols-3 divide-x divide-frost/60 py-3 text-center">
         {[["Total Earned", "25,680 IQ"], ["Friends", "128"], ["Rank", "#124"]].map(([l, v]) => (
-          <div key={l}><p className="text-xs text-ice/75">{l}</p><p className="font-display text-xl">{v}</p></div>
+          <div key={l}><p className="text-xs text-ice/75">{l}</p><p className="text-3d text-xl">{v}</p></div>
         ))}
       </section>
 
       <div className="space-y-2">
         {rows.map(({ t, s, I, g }) => (
           <button key={t} className="ice-panel grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-2.5 text-left active:scale-[0.98]">
-            <span className={`grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br ${g} shadow-[var(--glow-cyan)]`}><I size={22} /></span>
-            <span className="min-w-0"><span className="block truncate font-display">{t}</span><span className="block truncate text-xs text-ice/75">{s}</span></span>
-            <ChevronRight className="text-crystal" />
+            <span className="ice-tile grid h-12 w-12 shrink-0 place-items-center"><span className={`grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br ${g} shadow-[inset_0_2px_0_oklch(1_0_0/0.5),0_2px_0_oklch(0_0_0/0.45)]`}><I size={18} /></span></span>
+            <span className="min-w-0"><span className="block truncate text-3d">{t}</span><span className="block truncate text-xs text-ice/75">{s}</span></span>
+            <ChevronRight className="text-crystal drop-shadow-[0_0_6px_var(--cyan)]" />
           </button>
         ))}
       </div>
 
-      <button className="mx-auto flex w-3/4 items-center justify-center gap-2 rounded-xl border-2 border-destructive bg-destructive/20 py-3 font-display text-lg text-destructive shadow-[0_0_14px_color-mix(in_oklab,var(--destructive)_50%,transparent)] active:scale-95">
-        <LogOut size={20} /> Logout
-      </button>
+      <div className="mx-auto w-3/4 [filter:hue-rotate(160deg)_saturate(1.4)]"><button className="btn-ice flex w-full items-center justify-center gap-2 py-3 text-lg"><LogOut size={20} /> Logout</button></div>
     </>
   );
 }

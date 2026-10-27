@@ -24,10 +24,11 @@ const players = [
   ["SnowKing", "2,580", "5 TON"], ["IceQueen", "1,980", "3 TON"], ["FrostDragon", "1,650", "1 TON"],
   ["GlacierX", "1,320", "500 IQ"], ["PolarMaster", "1,100", "500 IQ"],
 ];
-const rankStyle = ["bg-gold text-background", "bg-[oklch(0.82_0.02_250)] text-background", "bg-[oklch(0.65_0.13_50)] text-background"];
+const medal = "border-2 shadow-[0_2px_0_oklch(0_0_0/0.5),inset_0_2px_0_oklch(1_0_0/0.6)] text-background";
+const rankStyle = [`${medal} border-[oklch(0.95_0.1_95)] bg-[radial-gradient(circle_at_35%_30%,oklch(0.98_0.08_95),var(--gold)_60%,oklch(0.55_0.14_55))]`, `${medal} border-ice bg-[radial-gradient(circle_at_35%_30%,oklch(1_0_0),oklch(0.8_0.02_250)_60%,oklch(0.5_0.02_250))]`, `${medal} border-[oklch(0.85_0.1_60)] bg-[radial-gradient(circle_at_35%_30%,oklch(0.9_0.08_60),oklch(0.62_0.13_50)_60%,oklch(0.4_0.1_45))]`];
 
 function Countdown({ t }: { t: string }) {
-  return <span className="inline-flex items-center gap-1 rounded-md bg-background/70 px-2 py-0.5 font-display text-gold"><Timer size={14} /> {t}</span>;
+  return <span className="inline-flex items-center gap-1 rounded-lg border-2 border-gold/60 bg-background/80 px-2 py-0.5 font-display text-gold shadow-[0_2px_0_oklch(0.3_0.06_55),inset_0_1px_0_oklch(1_0_0/0.2)]"><Timer size={14} /> {t}</span>;
 }
 
 function Events() {
@@ -37,7 +38,7 @@ function Events() {
       <Chips items={["Leaderboard", "Contests", "Special", "History"]} active={cat} onChange={setCat} />
       <section className="ice-panel snow-cap overflow-hidden">
         <div className="relative bg-gradient-to-r from-primary/40 to-royal/30 p-4">
-          <p className="font-display text-2xl text-ice text-glow">ICE LEADERBOARD</p>
+          <p className="text-3d text-2xl">ICE LEADERBOARD</p>
           <p className="text-sm text-crystal">Top Players Win Huge Rewards</p>
           <div className="mt-2"><Countdown t="6D 12H 30M" /></div>
           <img src={trophy} alt="Trophy" className="absolute -top-1 right-2 h-28 w-28 animate-floaty object-contain" />
@@ -47,8 +48,8 @@ function Events() {
         </div>
         <ul className="space-y-1 p-2">
           {players.map(([n, s, r], i) => (
-            <li key={n} className="grid grid-cols-[28px_minmax(0,1fr)_auto_64px] items-center gap-2 rounded-lg border border-frost/50 bg-background/50 px-1.5 py-1.5">
-              <span className={`grid h-6 w-6 place-items-center rounded-full font-display text-sm ${rankStyle[i] ?? "bg-deep"}`}>{i + 1}</span>
+            <li key={n} className="grid grid-cols-[28px_minmax(0,1fr)_auto_64px] items-center gap-2 ice-tile px-1.5 py-1.5">
+              <span className={`grid h-6 w-6 place-items-center rounded-full font-display text-sm ${rankStyle[i] ?? "ice-tile !rounded-full"}`}>{i + 1}</span>
               <span className="flex min-w-0 items-center gap-2">
                 <img src={i % 2 ? avatar : warrior} alt="" className="h-7 w-7 shrink-0 rounded-full border border-crystal object-cover" />
                 <span className="truncate text-sm">{n}</span>
@@ -71,7 +72,7 @@ function Promo({ title, sub, time, cta, img, purple }: { title: string; sub: str
   return (
     <section className={`ice-panel snow-cap relative overflow-hidden p-4 ${purple ? "bg-gradient-to-r from-deep to-royal/50" : "bg-gradient-to-r from-deep to-primary/40"}`}>
       <div className="relative z-[1] max-w-[62%] space-y-1.5">
-        <p className="font-display text-xl leading-tight text-ice">{title}</p>
+        <p className="text-3d text-xl leading-tight">{title}</p>
         <p className="text-sm text-cyan">{sub}</p>
         <Countdown t={time} />
         <div><button className="btn-ice mt-1 px-5 py-1.5">{cta}</button></div>
