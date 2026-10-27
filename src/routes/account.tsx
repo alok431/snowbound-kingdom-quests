@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Wallet, Users, ReceiptText, Gift, Trophy, Settings, HelpCircle, ChevronRight, LogOut, Pencil, Flame } from "lucide-react";
+import { Wallet, Users, ReceiptText, Gift, Trophy, Settings, HelpCircle, ChevronRight, LogOut, Pencil, Flame, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
 import { Avatar, XpBar } from "@/components/snow/Shell";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/account")({
   head: () => ({
@@ -9,6 +10,8 @@ export const Route = createFileRoute("/account")({
       { name: "description", content: "Your SnowQuest profile, stats, wallet, referrals and achievements." },
       { property: "og:title", content: "Player Profile — SnowQuest" },
       { property: "og:description", content: "Your profile, stats, wallet and achievements." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Account,
@@ -44,6 +47,11 @@ function Account() {
         </div>
       </section>
 
+      <div className="grid grid-cols-2 gap-3 pb-2">
+        <Button variant="iceRoyal" className="h-12 text-lg"><ArrowUpFromLine />Withdraw</Button>
+        <Button variant="iceEmerald" className="h-12 text-lg"><ArrowDownToLine />Deposit</Button>
+      </div>
+
       <section className="ice-panel panel-royal grid grid-cols-3 divide-x divide-frost/60 py-3 text-center">
         {[["Total Earned", "25,680 IQ"], ["Friends", "128"], ["Rank", "#124"]].map(([l, v]) => (
           <div key={l}><p className="text-xs text-ice/75">{l}</p><p className="text-3d text-xl">{v}</p></div>
@@ -60,7 +68,7 @@ function Account() {
         ))}
       </div>
 
-      <div className="mx-auto w-3/4 [filter:hue-rotate(160deg)_saturate(1.4)]"><button className="btn-ice flex w-full items-center justify-center gap-2 py-3 text-lg"><LogOut size={20} /> Logout</button></div>
+      <div className="mx-auto w-3/4"><Button variant="iceRose" className="h-12 w-full text-lg"><LogOut /> Logout</Button></div>
     </>
   );
 }

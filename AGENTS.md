@@ -9,3 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 - Shared app frame (header, bottom nav, snowfall) lives in src/components/snow/Shell.tsx and wraps <Outlet /> in __root; pages only render their content.
+- Shared icy perimeters and material tints live in global CSS; new ice actions use the UI Button's ice variants so rims and interaction states stay consistent.

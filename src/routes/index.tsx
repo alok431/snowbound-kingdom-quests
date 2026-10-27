@@ -18,6 +18,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Your SnowQuest balance, daily streak, lucky spin and winter events." },
       { property: "og:title", content: "SnowQuest — Frozen Kingdom" },
       { property: "og:description", content: "Your balance, daily streak, lucky spin and winter events." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
@@ -34,7 +36,6 @@ function Home() {
         <div className="absolute inset-0 rounded-xl bg-[linear-gradient(160deg,oklch(0.55_0.16_235/0.55),oklch(0.16_0.08_258/0.85))]" />
         <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-background/20 to-background/60" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 rounded-t-xl bg-gradient-to-b from-crystal/35 to-transparent" />
-        <Icicles />
         <Lantern className="left-1.5" />
         <Lantern className="right-1.5" />
         <div className="relative flex items-center gap-2 px-10 py-6">
@@ -128,12 +129,3 @@ function Lantern({ className }: { className: string }) {
   );
 }
 
-function Icicles() {
-  return (
-    <div className="pointer-events-none absolute inset-x-4 -bottom-3 z-[3] flex justify-between">
-      {Array.from({ length: 12 }, (_, i) => (
-        <span key={i} className="block w-1.5 bg-gradient-to-b from-ice to-transparent [clip-path:polygon(0_0,100%_0,50%_100%)]" style={{ height: 6 + ((i * 7) % 11) }} />
-      ))}
-    </div>
-  );
-}
