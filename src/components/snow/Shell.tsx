@@ -1,6 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { Bell, Settings, Plus, Crown, Home, ListChecks, Trophy, User } from "lucide-react";
+import { Bell, Settings, Plus, Crown } from "lucide-react";
+import icHome from "@/assets/ic-home.png";
+import icTasks from "@/assets/ic-tasks.png";
+import icEvents from "@/assets/ic-events.png";
+import icAccount from "@/assets/ic-account.png";
 import avatar from "@/assets/avatar.jpg";
 import crystal from "@/assets/crystal.png";
 import bg from "@/assets/bg.jpg";
@@ -29,8 +33,8 @@ function Snowfall() {
 
 export function XpBar({ value = 380, max = 1000, className = "" }: { value?: number; max?: number; className?: string }) {
   return (
-    <div className={`relative h-3 rounded-full border border-frost bg-background/80 ${className}`}>
-      <div className="h-full rounded-full bg-gradient-to-r from-primary to-cyan shadow-[var(--glow-cyan)]" style={{ width: `${(value / max) * 100}%` }} />
+    <div className={`relative h-3.5 rounded-full border-2 border-crystal/80 bg-background/90 p-[1px] shadow-[0_2px_0_var(--ice-depth-dark),inset_0_2px_4px_oklch(0_0_0/0.6)] ${className}`}>
+      <div className="h-full rounded-full bg-[linear-gradient(180deg,oklch(1_0_0/0.6),transparent_50%),linear-gradient(90deg,var(--royal),var(--cyan))] shadow-[0_0_8px_var(--cyan)] transition-[width] duration-1000" style={{ width: `${(value / max) * 100}%` }} />
     </div>
   );
 }
@@ -46,7 +50,7 @@ export function Avatar({ size = 56, src = avatar }: { size?: number; src?: strin
 
 function IconBtn({ children, label }: { children: ReactNode; label: string }) {
   return (
-    <button aria-label={label} className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-crystal/70 bg-deep shadow-[var(--glow-cyan)] active:scale-95">
+    <button aria-label={label} className="ice-tile grid h-10 w-10 shrink-0 place-items-center">
       {children}
     </button>
   );
@@ -61,7 +65,7 @@ export function Header() {
           <span className="absolute -bottom-0.5 -left-0.5 grid h-5 w-5 place-items-center rounded-full border border-ice bg-primary"><Plus size={12} strokeWidth={3} /></span>
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-lg leading-tight">Snow Explorer</p>
+          <p className="text-3d truncate text-lg leading-tight">Snow Explorer</p>
           <p className="flex items-center gap-1 text-sm text-gold"><Crown size={13} fill="currentColor" /> Lv. 12</p>
           <div className="mt-1 flex items-center gap-2">
             <XpBar className="flex-1" />
@@ -78,28 +82,35 @@ export function Header() {
 }
 
 const tabs = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/tasks", label: "Tasks", icon: ListChecks },
+  { to: "/", label: "Home", icon: icHome },
+  { to: "/tasks", label: "Tasks", icon: icTasks },
   { to: "/games", label: "Games", icon: null },
-  { to: "/events", label: "Events", icon: Trophy },
-  { to: "/account", label: "Account", icon: User },
+  { to: "/events", label: "Events", icon: icEvents },
+  { to: "/account", label: "Account", icon: icAccount },
 ] as const;
 
 function BottomNav() {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[480px] px-2 pb-[max(env(safe-area-inset-bottom),8px)]">
-      <div className="ice-panel snow-cap grid grid-cols-5 items-end bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
+      <div className="ice-panel snow-cap icicles relative grid grid-cols-5 items-end !bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <span className="animate-dock absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-crystal/25 to-transparent" />
+        </div>
         {tabs.map((t) => (
           <Link key={t.to} to={t.to} activeOptions={{ exact: true }}
-            className="group flex flex-col items-center gap-0.5 text-xs text-ice/80 data-[status=active]:text-cyan">
+            className="group relative flex flex-col items-center gap-0.5 text-xs text-ice/75 data-[status=active]:text-cyan">
             {t.icon ? (
-              <t.icon size={24} className="transition group-data-[status=active]:drop-shadow-[0_0_8px_var(--cyan)]" />
+              <span className="relative grid h-10 w-10 place-items-center transition-transform duration-300 group-data-[status=active]:-translate-y-2 group-data-[status=active]:animate-[rise_.5s_ease-out]">
+                <span className="absolute inset-0 rounded-full opacity-0 shadow-[0_0_20px_6px_var(--cyan)] transition group-data-[status=active]:opacity-60" />
+                <img src={t.icon} alt="" width={40} height={40} className="relative h-10 w-10 object-contain drop-shadow-[0_3px_3px_oklch(0_0_0/0.7)] grayscale-[35%] group-data-[status=active]:grayscale-0" />
+              </span>
             ) : (
-              <span className="-mt-9 grid h-16 w-16 place-items-center rounded-full border-2 border-crystal bg-deep shadow-[var(--glow-cyan)]">
-                <img src={crystal} alt="" className="h-12 w-12 animate-shimmer object-contain" />
+              <span className="-mt-11 grid h-[72px] w-[72px] animate-floaty place-items-center rounded-full border-[3px] border-ice [border-bottom-color:var(--frost)] bg-[radial-gradient(circle_at_50%_35%,color-mix(in_oklab,var(--cyan)_45%,var(--deep)),var(--deep))] shadow-[0_6px_0_var(--ice-depth-dark),0_0_26px_var(--cyan),inset_0_3px_0_oklch(1_0_0/0.6)]">
+                <img src={crystal} alt="" className="h-14 w-14 animate-shimmer object-contain" />
               </span>
             )}
-            <span className="font-medium group-data-[status=active]:underline group-data-[status=active]:underline-offset-4">{t.label}</span>
+            <span className="font-display tracking-wide group-data-[status=active]:[text-shadow:0_0_8px_var(--cyan)]">{t.label}</span>
+            <span className="h-1 w-5 rounded-full bg-cyan opacity-0 shadow-[0_0_8px_var(--cyan)] group-data-[status=active]:opacity-100" />
           </Link>
         ))}
       </div>
@@ -137,7 +148,7 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 export function Reward({ v, unit = "IQ" }: { v: string | number; unit?: string }) {
-  return <span className="flex items-center gap-1 font-display text-gold"><span className="h-3 w-3 rounded-full bg-gold shadow-[0_0_6px_var(--gold)]" />{v} {unit}</span>;
+  return <span className="flex items-center gap-1 font-display text-gold"><span className="h-3.5 w-3.5 rounded-full border border-[oklch(0.95_0.08_90)] bg-[radial-gradient(circle_at_35%_30%,oklch(0.98_0.08_95),var(--gold)_55%,oklch(0.55_0.14_55))] shadow-[0_1px_0_oklch(0.35_0.08_50),0_0_6px_var(--gold)]" />{v} {unit}</span>;
 }
 
 export function Chips({ items, active, onChange }: { items: string[]; active: string; onChange: (s: string) => void }) {

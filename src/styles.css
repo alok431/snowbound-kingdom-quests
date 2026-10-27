@@ -83,72 +83,196 @@
 
 @utility font-display { font-family: var(--font-display); letter-spacing: 0.01em; }
 
-/* Glowing icy frame */
+/* ===== 3D ICE MATERIAL SYSTEM ===== */
+:root {
+  --ice-depth: oklch(0.38 0.14 252);
+  --ice-depth-dark: oklch(0.25 0.1 255);
+  --shadow-ice: 0 6px 0 var(--ice-depth-dark), 0 12px 22px color-mix(in oklab, var(--background) 85%, transparent), 0 0 18px color-mix(in oklab, var(--primary) 45%, transparent);
+  --spring: cubic-bezier(.34,1.56,.64,1);
+}
+
+/* Crystal-ice frozen panel: thick bevel + side depth */
 @utility ice-panel {
   position: relative;
-  background: var(--gradient-panel);
-  border: 1.5px solid color-mix(in oklab, var(--crystal) 70%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--crystal) 14%, transparent), transparent 35%),
+    var(--gradient-panel);
+  border: 2.5px solid color-mix(in oklab, var(--crystal) 80%, transparent);
+  border-bottom-color: color-mix(in oklab, var(--frost) 90%, transparent);
   border-radius: var(--radius-xl);
-  box-shadow: 0 0 12px color-mix(in oklab, var(--primary) 45%, transparent), inset 0 0 18px color-mix(in oklab, var(--primary) 25%, transparent);
+  box-shadow: var(--shadow-ice),
+    inset 0 2px 0 color-mix(in oklab, var(--ice) 45%, transparent),
+    inset 0 0 22px color-mix(in oklab, var(--primary) 30%, transparent);
+  transition: transform .25s var(--spring);
 }
+
+/* Royal ice: navy with silver bevel */
+@utility panel-royal {
+  border-color: oklch(0.82 0.03 240);
+  border-bottom-color: oklch(0.5 0.04 245);
+  background:
+    linear-gradient(180deg, oklch(0.9 0.02 240 / 0.12), transparent 30%),
+    linear-gradient(160deg, oklch(0.24 0.07 262), oklch(0.13 0.04 262));
+  box-shadow: 0 6px 0 oklch(0.3 0.03 250), 0 12px 22px color-mix(in oklab, var(--background) 85%, transparent),
+    inset 0 2px 0 oklch(0.95 0.02 240 / 0.5), inset 0 0 0 2px oklch(0.2 0.05 260), inset 0 0 0 3.5px oklch(0.7 0.03 240 / 0.45);
+}
+
+/* Magical crystal: transparent glowing */
+@utility panel-crystal {
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--cyan) 25%, transparent), transparent 40%, color-mix(in oklab, var(--royal) 25%, transparent)),
+    color-mix(in oklab, var(--deep) 75%, transparent);
+  backdrop-filter: blur(8px);
+  border-color: var(--cyan);
+  box-shadow: 0 6px 0 var(--ice-depth), 0 0 26px color-mix(in oklab, var(--cyan) 50%, transparent), inset 0 0 26px color-mix(in oklab, var(--cyan) 30%, transparent), inset 0 2px 0 var(--ice);
+}
+
+@utility lift { &:active { transform: translateY(2px) scale(.99); } }
 
 /* Snow cap on top edge */
 @utility snow-cap {
   &::before {
     content: "";
     position: absolute;
-    left: -3px; right: -3px; top: -7px; height: 14px;
-    border-radius: 12px 12px 50% 50% / 12px 12px 8px 8px;
+    left: -4px; right: -4px; top: -9px; height: 16px;
+    border-radius: 14px 14px 50% 50% / 14px 14px 8px 8px;
     background:
-      radial-gradient(circle at 10% 60%, var(--ice) 6px, transparent 7px),
-      radial-gradient(circle at 35% 40%, var(--ice) 7px, transparent 8px),
-      radial-gradient(circle at 62% 55%, var(--ice) 6px, transparent 7px),
-      radial-gradient(circle at 88% 45%, var(--ice) 7px, transparent 8px),
-      linear-gradient(180deg, var(--ice), color-mix(in oklab, var(--ice) 80%, var(--crystal)));
-    box-shadow: 0 2px 4px color-mix(in oklab, var(--background) 60%, transparent);
+      radial-gradient(circle at 8% 70%, var(--ice) 6px, transparent 7px),
+      radial-gradient(circle at 30% 35%, var(--ice) 8px, transparent 9px),
+      radial-gradient(circle at 58% 55%, var(--ice) 7px, transparent 8px),
+      radial-gradient(circle at 85% 40%, var(--ice) 8px, transparent 9px),
+      linear-gradient(180deg, oklch(1 0 0), color-mix(in oklab, var(--ice) 75%, var(--crystal)));
+    box-shadow: 0 3px 5px color-mix(in oklab, var(--background) 60%, transparent), inset 0 -2px 2px color-mix(in oklab, var(--crystal) 50%, transparent);
     pointer-events: none;
-    z-index: 2;
+    z-index: 4;
   }
 }
 
+/* Hanging icicles along bottom edge */
+@utility icicles {
+  &::after {
+    content: "";
+    position: absolute; left: 10%; right: 10%; bottom: -9px; height: 10px;
+    background: linear-gradient(180deg, var(--ice), color-mix(in oklab, var(--crystal) 40%, transparent));
+    clip-path: polygon(0 0,100% 0,96% 40%,93% 0,88% 90%,83% 0,76% 50%,70% 0,62% 100%,55% 0,48% 45%,42% 0,35% 80%,28% 0,20% 55%,14% 0,8% 100%,3% 0);
+    pointer-events: none; z-index: 4;
+  }
+}
+
+/* Thick 3D ice button */
 @utility btn-ice {
-  background: var(--gradient-btn);
-  color: var(--background);
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, oklch(1 0 0 / .65) 0%, oklch(1 0 0 / .15) 42%, transparent 50%, oklch(0.45 0.18 255 / .35) 100%),
+    linear-gradient(0deg, color-mix(in oklab, var(--cyan) 45%, transparent), color-mix(in oklab, var(--cyan) 45%, transparent)),
+    url("./assets/ice-tex.jpg") center / 160px auto;
+  color: oklch(1 0 0);
   font-family: var(--font-display);
-  border-radius: 0.6rem;
-  border: 1px solid color-mix(in oklab, var(--ice) 70%, transparent);
-  box-shadow: var(--glow-cyan), inset 0 1px 0 color-mix(in oklab, var(--ice) 80%, transparent);
-  transition: transform 0.1s, filter 0.2s;
-  &:active { transform: scale(0.95); filter: brightness(1.15); }
+  letter-spacing: .02em;
+  text-shadow: 0 2px 0 oklch(0.28 0.13 255), 0 0 1px oklch(0.28 0.13 255), 0 0 10px color-mix(in oklab, var(--primary) 70%, transparent);
+  border-radius: 0.75rem;
+  border: 2px solid oklch(0.95 0.05 220);
+  border-bottom-color: oklch(0.55 0.16 245);
+  box-shadow:
+    0 5px 0 var(--ice-depth), 0 7px 0 var(--ice-depth-dark),
+    0 12px 18px color-mix(in oklab, var(--background) 80%, transparent),
+    0 4px 22px color-mix(in oklab, var(--cyan) 55%, transparent),
+    inset 0 2px 0 oklch(1 0 0 / .9), inset 0 -4px 8px color-mix(in oklab, var(--primary) 55%, transparent);
+  transition: transform .35s var(--spring), box-shadow .2s, filter .2s;
+  &:hover { transform: translateY(-2px); filter: brightness(1.1) saturate(1.1); }
+  &:active {
+    transform: translateY(5px);
+    transition-duration: .06s;
+    filter: brightness(1.2);
+    box-shadow: 0 1px 0 var(--ice-depth), 0 2px 0 var(--ice-depth-dark), 0 0 28px var(--cyan),
+      inset 0 2px 0 oklch(1 0 0 / .9), inset 0 0 14px var(--cyan);
+  }
+  &::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none;
+    background: linear-gradient(110deg, transparent 30%, oklch(1 0 0 / .55) 45%, transparent 55%) -150% 0 / 200% 100% no-repeat;
+    animation: glint 4.5s ease-in-out infinite;
+  }
+}
+
+/* Small 3D ice tile for icons */
+@utility ice-tile {
+  position: relative;
+  border-radius: 0.85rem;
+  border: 2px solid oklch(0.9 0.06 220 / .9);
+  border-bottom-color: oklch(0.45 0.14 250);
+  background:
+    linear-gradient(180deg, oklch(1 0 0 / .35), transparent 45%),
+    linear-gradient(160deg, color-mix(in oklab, var(--crystal) 40%, var(--deep)), var(--deep));
+  box-shadow: 0 4px 0 var(--ice-depth-dark), 0 6px 12px color-mix(in oklab, var(--background) 80%, transparent),
+    0 0 14px color-mix(in oklab, var(--cyan) 40%, transparent), inset 0 2px 0 oklch(1 0 0 / .6), inset 0 -3px 6px color-mix(in oklab, var(--background) 50%, transparent);
+  transition: transform .3s var(--spring);
+  &:active { transform: translateY(3px); }
+  & svg { filter: drop-shadow(0 2px 0 oklch(0.25 0.1 255)) drop-shadow(0 0 6px var(--cyan)); }
 }
 
 @utility chip {
-  border-radius: 0.6rem;
-  border: 1px solid color-mix(in oklab, var(--frost) 90%, transparent);
-  background: color-mix(in oklab, var(--deep) 85%, transparent);
-  &[data-active="true"] { background: var(--gradient-btn); color: var(--background); box-shadow: var(--glow-cyan); }
+  border-radius: 0.7rem;
+  font-family: var(--font-display);
+  letter-spacing: .02em;
+  border: 2px solid color-mix(in oklab, var(--frost) 95%, transparent);
+  border-top-color: color-mix(in oklab, var(--crystal) 80%, transparent);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--crystal) 18%, transparent), transparent 50%), color-mix(in oklab, var(--deep) 90%, transparent);
+  box-shadow: 0 3px 0 var(--ice-depth-dark), inset 0 1px 0 oklch(1 0 0 / .3);
+  transition: transform .3s var(--spring);
+  &:active { transform: translateY(2px); }
+  &[data-active="true"] {
+    background: linear-gradient(180deg, oklch(1 0 0 / .6), oklch(1 0 0 / .1) 45%, transparent 55%),
+      linear-gradient(0deg, color-mix(in oklab, var(--cyan) 50%, transparent), color-mix(in oklab, var(--cyan) 50%, transparent)),
+      url("./assets/ice-tex.jpg") center / 140px auto;
+    color: oklch(1 0 0);
+    text-shadow: 0 2px 0 oklch(0.28 0.13 255);
+    border-color: oklch(0.95 0.05 220);
+    box-shadow: 0 3px 0 var(--ice-depth), 0 0 16px var(--cyan), inset 0 2px 0 oklch(1 0 0 / .8);
+  }
 }
 
 @utility stone {
   background:
-    radial-gradient(circle at 30% 30%, oklch(0.42 0.03 250) 0, transparent 40%),
-    radial-gradient(circle at 70% 75%, oklch(0.3 0.03 250) 0, transparent 45%),
-    linear-gradient(160deg, oklch(0.38 0.03 250), oklch(0.22 0.03 255));
-  border: 2px solid oklch(0.45 0.04 250);
-  box-shadow: 0 6px 14px color-mix(in oklab, var(--background) 80%, transparent), inset 0 -4px 10px color-mix(in oklab, var(--background) 60%, transparent);
+    linear-gradient(180deg, oklch(0.9 0.04 230 / .25), transparent 25%),
+    radial-gradient(circle at 25% 30%, oklch(0.46 0.03 250) 0, transparent 40%),
+    radial-gradient(circle at 75% 75%, oklch(0.28 0.03 250) 0, transparent 45%),
+    linear-gradient(160deg, oklch(0.4 0.03 250), oklch(0.2 0.03 255));
+  border: 3px solid oklch(0.55 0.05 240);
+  border-bottom-color: oklch(0.3 0.03 250);
+  box-shadow: 0 7px 0 oklch(0.17 0.03 255), 0 14px 22px color-mix(in oklab, var(--background) 85%, transparent),
+    0 0 16px color-mix(in oklab, var(--crystal) 30%, transparent),
+    inset 0 2px 0 oklch(0.85 0.04 230 / .5), inset 0 -6px 12px color-mix(in oklab, var(--background) 60%, transparent);
+  transition: transform .35s var(--spring), box-shadow .15s;
+  &:active { transform: translateY(6px); box-shadow: 0 1px 0 oklch(0.17 0.03 255), 0 0 26px var(--cyan), inset 0 0 18px color-mix(in oklab, var(--cyan) 45%, transparent); transition-duration: .06s; }
 }
 
-@utility text-glow { text-shadow: 0 0 10px color-mix(in oklab, var(--cyan) 70%, transparent); }
+@utility text-3d {
+  font-family: var(--font-display);
+  color: oklch(1 0 0);
+  text-shadow: 0 1px 0 oklch(0.8 0.08 225), 0 2px 0 oklch(0.5 0.15 250), 0 3px 0 oklch(0.3 0.12 255), 0 5px 8px oklch(0 0 0 / .6), 0 0 14px color-mix(in oklab, var(--cyan) 60%, transparent);
+}
+
+@utility text-glow { text-shadow: 0 2px 0 oklch(0.3 0.12 255), 0 0 12px color-mix(in oklab, var(--cyan) 75%, transparent); }
 @utility text-gold-grad {
-  background: linear-gradient(180deg, oklch(0.95 0.1 90), var(--gold) 55%, oklch(0.65 0.16 55));
+  background: linear-gradient(180deg, oklch(0.99 0.06 95) 0%, oklch(0.92 0.13 88) 30%, var(--gold) 52%, oklch(0.62 0.16 55) 75%, oklch(0.85 0.13 80) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 2px 0 oklch(0.3 0.08 50));
+  filter: drop-shadow(0 2px 0 oklch(0.35 0.09 50)) drop-shadow(0 3px 0 oklch(0.22 0.06 45)) drop-shadow(0 0 10px color-mix(in oklab, var(--gold) 50%, transparent));
+}
+
+@keyframes glint { 0%, 70% { background-position: -150% 0; } 100% { background-position: 250% 0; } }
+@keyframes dock-shimmer { from { transform: translateX(-120%); } to { transform: translateX(420%); } }
+@keyframes rise { 0% { transform: translateY(0); } 60% { transform: translateY(-9px); } 100% { transform: translateY(-6px); } }
+@utility animate-dock { animation: dock-shimmer 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
 @keyframes snowfall { from { transform: translate3d(0,-10vh,0); } to { transform: translate3d(30px,110vh,0); } }
 @keyframes shimmer { 0%,100% { filter: drop-shadow(0 0 6px var(--cyan)) brightness(1); } 50% { filter: drop-shadow(0 0 16px var(--cyan)) brightness(1.25); } }
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@keyframes page-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes page-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
 @utility animate-shimmer { animation: shimmer 2.6s ease-in-out infinite; }
 @utility animate-floaty { animation: floaty 3s ease-in-out infinite; }
 @utility animate-page { animation: page-in 0.35s ease-out; }

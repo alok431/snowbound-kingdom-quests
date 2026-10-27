@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Flame, Lock, Users } from "lucide-react";
+import { Check, Flame } from "lucide-react";
+import icEarn from "@/assets/ic-earn.png";
+import icWallet from "@/assets/ic-wallet.png";
+import icInvite from "@/assets/ic-invite.png";
 import crystal from "@/assets/crystal.png";
 import wood from "@/assets/wood.jpg";
 import chest from "@/assets/chest.png";
@@ -25,16 +28,17 @@ function Home() {
   return (
     <>
       {/* Balance */}
-      <section className="snow-cap relative overflow-visible rounded-2xl border-4 border-[oklch(0.35_0.06_55)] shadow-[0_0_18px_color-mix(in_oklab,var(--gold)_35%,transparent)]">
+      <section className="snow-cap relative overflow-visible rounded-2xl border-[5px] border-[oklch(0.58_0.11_65)] [border-bottom-color:oklch(0.38_0.08_55)] shadow-[0_7px_0_oklch(0.25_0.05_50),0_14px_26px_oklch(0_0_0/0.6),0_0_22px_color-mix(in_oklab,var(--gold)_35%,transparent),inset_0_0_0_2px_oklch(0.82_0.1_80/0.6)]">
         <img src={wood} alt="" className="absolute inset-0 h-full w-full rounded-xl object-cover" />
         <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-background/20 to-background/60" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 rounded-t-xl bg-gradient-to-b from-crystal/35 to-transparent" />
         <Icicles />
         <Lantern className="left-1.5" />
         <Lantern className="right-1.5" />
         <div className="relative flex items-center gap-2 px-8 py-6">
           <img src={crystal} alt="" className="h-20 w-16 shrink-0 animate-shimmer object-contain" />
           <div className="min-w-0 flex-1 text-center">
-            <p className="font-display text-sm tracking-wide text-ice">YOUR BALANCE</p>
+            <p className="text-3d text-sm tracking-wide">YOUR BALANCE</p>
             <p className="font-display text-5xl leading-none text-gold-grad">5,680 <span className="text-2xl">IQ</span></p>
             <p className="mt-1 text-sm text-ice/90">≈ $0.56 (0.59 TON)</p>
           </div>
@@ -44,15 +48,13 @@ function Home() {
       {/* Quick actions */}
       <section className="grid grid-cols-3 gap-3 pt-2">
         {[
-          { l: "Earn", I: Flame, c: "text-gold", g: "from-[oklch(0.7_0.2_45)] to-[oklch(0.45_0.2_30)]" },
-          { l: "Withdraw", I: Lock, c: "text-ice", g: "from-cyan to-primary" },
-          { l: "Invite", I: Users, c: "text-ice", g: "from-royal to-[oklch(0.35_0.2_290)]" },
-        ].map(({ l, I, c, g }) => (
-          <button key={l} className="stone snow-cap relative flex flex-col items-center gap-1.5 rounded-2xl pb-2 pt-4 active:scale-95">
-            <span className={`grid h-14 w-14 place-items-center rounded-full bg-gradient-to-b ${g} shadow-[var(--glow-cyan)] animate-floaty`}>
-              <I size={28} className={c} fill="currentColor" />
-            </span>
-            <span className="font-display text-lg">{l}</span>
+          { l: "Earn", img: icEarn },
+          { l: "Withdraw", img: icWallet },
+          { l: "Invite", img: icInvite },
+        ].map(({ l, img }) => (
+          <button key={l} className="stone snow-cap relative flex flex-col items-center gap-1 rounded-2xl pb-2 pt-3">
+            <img src={img} alt="" width={64} height={64} className="h-16 w-16 animate-floaty object-contain drop-shadow-[0_6px_6px_oklch(0_0_0/0.6)]" />
+            <span className="text-3d text-lg leading-none">{l}</span>
           </button>
         ))}
       </section>
@@ -60,14 +62,14 @@ function Home() {
       {/* Streak */}
       <section className="ice-panel p-3">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="flex items-center gap-1 font-display text-lg"><Flame size={18} className="text-gold" fill="currentColor" /> Daily Streak</h2>
+          <h2 className="text-3d flex items-center gap-1 text-lg"><Flame size={18} className="text-gold" fill="currentColor" /> Daily Streak</h2>
           <span className="font-display text-gold">7 Days</span>
         </div>
         <div className="grid grid-cols-7 gap-1">
           {streak.map((v, i) => {
             const done = i < 3, last = i === 6;
             return (
-              <div key={i} className={`flex flex-col items-center gap-1 rounded-lg border py-1 ${last ? "border-gold bg-gold/15" : "border-frost bg-background/60"}`}>
+              <div key={i} className={`flex flex-col items-center gap-1 ice-tile py-1 ${last ? "!border-gold" : ""} ${done ? "!border-cyan" : ""}`}>
                 <span className={`text-[10px] ${last ? "text-gold" : "text-ice/80"}`}>Day {i + 1}</span>
                 {last ? <img src={chest} alt="Treasure chest" className="h-7 w-7 object-contain" />
                   : done ? <span className="grid h-6 w-6 place-items-center rounded-full bg-cyan shadow-[var(--glow-cyan)]"><Check size={14} strokeWidth={4} className="text-background" /></span>
@@ -93,7 +95,7 @@ function Home() {
           <p className="font-display text-gold">SPECIAL EVENT</p>
           <p className="font-display text-3xl leading-tight text-ice text-glow">SNOW VILLAGE</p>
           <p className="font-display text-crystal">Build · Trade · Earn</p>
-          <button className="btn-ice mt-3 px-6 py-2 text-xl">Play Now</button>
+          <button className="btn-ice snow-cap mt-4 px-7 py-2 text-xl">Play Now</button>
         </div>
       </section>
     </>
@@ -101,13 +103,13 @@ function Home() {
 }
 
 function MiniCard({ img, title, sub, cta, to, spin }: { img: string; title: string; sub: string; cta: string; to?: "/tasks"; spin?: boolean }) {
-  const btn = "btn-ice block w-full py-1.5 text-center text-lg";
+  const btn = "btn-ice snow-cap block w-full py-1.5 text-center text-lg";
   return (
     <div className="ice-panel snow-cap p-3">
       <div className="flex items-center gap-2">
         <img src={img} alt="" className={`h-12 w-12 shrink-0 object-contain ${spin ? "animate-[spin_12s_linear_infinite]" : ""}`} />
         <div className="min-w-0">
-          <p className="truncate font-display">{title}</p>
+          <p className="text-3d truncate">{title}</p>
           <p className="truncate text-xs text-ice/75">{sub}</p>
         </div>
       </div>
