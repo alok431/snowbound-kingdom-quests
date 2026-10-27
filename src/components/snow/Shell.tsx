@@ -93,7 +93,7 @@ const tabs = [
 function BottomNav() {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-[480px] px-2 pb-[max(env(safe-area-inset-bottom),8px)]">
-      <div className="ice-panel snow-cap snow-thin icicles relative grid grid-cols-5 items-end !bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
+      <div className="ice-panel snow-cap snow-thin relative grid grid-cols-5 items-end !bg-background/85 px-1 pb-1.5 pt-2 backdrop-blur-md">
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
           <span className="animate-dock absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-crystal/25 to-transparent" />
         </div>
@@ -106,9 +106,8 @@ function BottomNav() {
                 <img src={t.icon} alt="" width={40} height={40} className="relative h-10 w-10 object-contain drop-shadow-[0_3px_3px_oklch(0_0_0/0.7)] grayscale-[35%] group-data-[status=active]:grayscale-0" />
               </span>
             ) : (
-              <span className="-mt-12 grid h-[76px] w-[76px] animate-floaty place-items-center">
-                <span className="absolute h-14 w-14 rounded-full bg-cyan/40 blur-xl" />
-                <img src={iceCube} alt="" width={76} height={76} className="relative h-[76px] w-[76px] object-contain drop-shadow-[0_6px_6px_oklch(0_0_0/0.7)] transition-transform duration-300 group-data-[status=active]:scale-110" />
+              <span className="cube-medallion -mt-7 grid h-[60px] w-[60px] animate-floaty place-items-center">
+                <img src={iceCube} alt="" width={52} height={52} className="relative h-[52px] w-[52px] object-contain transition-transform duration-300 group-data-[status=active]:scale-105" />
               </span>
             )}
             <span className="font-display tracking-wide group-data-[status=active]:[text-shadow:0_0_8px_var(--cyan)]">{t.label}</span>

@@ -15,6 +15,8 @@ export const Route = createFileRoute("/events")({
       { name: "description", content: "Climb the Ice Leaderboard, join the Snow Race and win the Invite Contest." },
       { property: "og:title", content: "Ice Tournament — SnowQuest" },
       { property: "og:description", content: "Leaderboards, races and contests in the frozen kingdom." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Events,

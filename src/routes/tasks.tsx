@@ -11,6 +11,8 @@ export const Route = createFileRoute("/tasks")({
       { name: "description", content: "Complete daily quests, offers and promo codes to earn IQ in SnowQuest." },
       { property: "og:title", content: "Quest Center — SnowQuest" },
       { property: "og:description", content: "Complete daily quests and offers to earn IQ." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Tasks,

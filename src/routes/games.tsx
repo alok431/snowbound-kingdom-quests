@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import runner from "@/assets/game-runner.jpg";
 import rider from "@/assets/game-rider.jpg";
 import miner from "@/assets/game-miner.jpg";
@@ -16,6 +18,8 @@ export const Route = createFileRoute("/games")({
       { name: "description", content: "Play Ice Runner, Snow Rider, Crystal Miner and more winter games to earn IQ." },
       { property: "og:title", content: "Frozen Arcade — SnowQuest" },
       { property: "og:description", content: "Play winter games and earn IQ rewards." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Games,
@@ -46,7 +50,7 @@ function Games() {
             <div className="px-1 pb-1 pt-1 text-center">
               <p className="text-3d text-lg leading-tight">{g.n}</p>
               <p className="text-xs text-cyan">{g.d}</p>
-              <button className="btn-ice mt-2 w-full py-1.5 text-sm">Play & Earn</button>
+              <Button variant="ice" className="mt-2 w-full"><Play fill="currentColor" />Play</Button>
             </div>
           </article>
         ))}
