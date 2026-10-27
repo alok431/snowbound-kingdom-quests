@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { Bell, Settings, Plus, Crown, Home, ListChecks, Trophy, User } from "lucide-react";
 import avatar from "@/assets/avatar.jpg";
@@ -108,6 +108,7 @@ function BottomNav() {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
+  const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <div className="fixed inset-0 -z-10">
@@ -128,7 +129,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
         </div>
         <div className="-mt-4"><Header /></div>
-        <main key={typeof window !== "undefined" ? window.location.pathname : ""} className="animate-page space-y-4 px-4 pt-4">{children}</main>
+        <main key={path} className="animate-page space-y-4 px-4 pt-4">{children}</main>
       </div>
       <BottomNav />
     </div>
