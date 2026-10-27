@@ -1,0 +1,63 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import runner from "@/assets/game-runner.jpg";
+import rider from "@/assets/game-rider.jpg";
+import miner from "@/assets/game-miner.jpg";
+import yeti from "@/assets/game-yeti.jpg";
+import tower from "@/assets/game-tower.jpg";
+import match from "@/assets/game-match.jpg";
+import bg from "@/assets/bg.jpg";
+import { Chips, Reward } from "@/components/snow/Shell";
+
+export const Route = createFileRoute("/games")({
+  head: () => ({
+    meta: [
+      { title: "Frozen Arcade — SnowQuest" },
+      { name: "description", content: "Play Ice Runner, Snow Rider, Crystal Miner and more winter games to earn IQ." },
+      { property: "og:title", content: "Frozen Arcade — SnowQuest" },
+      { property: "og:description", content: "Play winter games and earn IQ rewards." },
+    ],
+  }),
+  component: Games,
+});
+
+const games = [
+  { n: "Ice Runner", d: "Run · Collect · Earn", img: runner, c: "Action", r: 120 },
+  { n: "Snow Rider", d: "Race · Drift · Earn", img: rider, c: "Racing", r: 150 },
+  { n: "Crystal Miner", d: "Mine · Craft · Earn", img: miner, c: "Strategy", r: 100 },
+  { n: "Yeti Blast", d: "Puzzle · Win · Earn", img: yeti, c: "Action", r: 130 },
+  { n: "Ice Tower", d: "Build · Defend · Earn", img: tower, c: "Strategy", r: 180 },
+  { n: "Frozen Match", d: "Match · Score · Earn", img: match, c: "Puzzle", r: 90 },
+];
+
+function Games() {
+  const [cat, setCat] = useState("All");
+  return (
+    <>
+      <Chips items={["All", "Action", "Puzzle", "Racing", "Strategy"]} active={cat} onChange={setCat} />
+      <div className="grid grid-cols-2 gap-3">
+        {games.filter((g) => cat === "All" || g.c === cat).map((g) => (
+          <article key={g.n} className="ice-panel snow-cap overflow-hidden p-1.5">
+            <div className="relative aspect-[4/3.4] overflow-hidden rounded-lg">
+              <img src={g.img} alt={g.n} loading="lazy" className="h-full w-full object-cover transition duration-500 hover:scale-110" />
+              <div className="absolute right-1 top-1 rounded-md bg-background/80 px-1.5 py-0.5 text-xs"><Reward v={`+${g.r}`} /></div>
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
+            </div>
+            <div className="px-1 pb-1 pt-1 text-center">
+              <p className="font-display text-lg leading-tight">{g.n}</p>
+              <p className="text-xs text-cyan">{g.d}</p>
+              <button className="btn-ice mt-2 w-full py-1.5 text-sm">Play & Earn</button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <section className="ice-panel snow-cap relative h-24 overflow-hidden">
+        <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_60%] opacity-60 brightness-50" />
+        <div className="relative p-4">
+          <p className="font-display text-2xl">More Games</p>
+          <p className="text-ice/80">Coming Soon…</p>
+        </div>
+      </section>
+    </>
+  );
+}

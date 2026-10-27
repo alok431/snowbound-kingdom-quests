@@ -8,3 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- Shared app frame (header, bottom nav, snowfall) lives in src/components/snow/Shell.tsx and wraps <Outlet /> in __root; pages only render their content.
