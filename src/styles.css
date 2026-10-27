@@ -131,21 +131,19 @@
 
 @utility lift { &:active { transform: translateY(2px) scale(.99); } }
 
-/* Snow cap on top edge */
+/* Jagged crispy ice crust on top edge (no white snow) */
 @utility snow-cap {
   &::before {
     content: "";
     position: absolute;
-    left: 6px; right: 6px; top: -7px; height: 13px;
-    border-radius: 12px 12px 40% 40% / 10px 10px 6px 6px;
+    left: 4px; right: 4px; top: -9px; height: 16px;
     background:
-      radial-gradient(ellipse 9px 6px at 12% 100%, oklch(0.98 0.01 230) 98%, transparent),
-      radial-gradient(ellipse 6px 7px at 34% 100%, oklch(0.98 0.01 230) 98%, transparent),
-      radial-gradient(ellipse 10px 5px at 63% 100%, oklch(0.98 0.01 230) 98%, transparent),
-      radial-gradient(ellipse 7px 6px at 86% 100%, oklch(0.98 0.01 230) 98%, transparent),
-      radial-gradient(ellipse 40% 60% at 30% 20%, oklch(1 0 0), transparent),
-      linear-gradient(180deg, oklch(1 0 0), oklch(0.9 0.04 230));
-    box-shadow: 0 3px 5px color-mix(in oklab, var(--background) 60%, transparent), inset 0 -2px 2px color-mix(in oklab, var(--crystal) 50%, transparent);
+      linear-gradient(100deg, transparent 20%, oklch(1 0 0 / .55) 32%, transparent 40%, transparent 62%, oklch(1 0 0 / .45) 70%, transparent 78%),
+      linear-gradient(180deg, oklch(0.93 0.07 215 / .95) 0%, color-mix(in oklab, var(--cyan) 75%, transparent) 45%, oklch(0.5 0.17 248 / .9) 100%),
+      url("./assets/ice-tex.jpg") center / 120px auto;
+    background-blend-mode: screen, normal, overlay;
+    clip-path: polygon(0 100%, 0 55%, 3% 30%, 6% 60%, 10% 10%, 14% 50%, 17% 25%, 21% 65%, 25% 0, 29% 45%, 33% 20%, 37% 60%, 41% 15%, 45% 50%, 49% 5%, 53% 55%, 57% 25%, 61% 60%, 65% 10%, 69% 45%, 73% 20%, 77% 65%, 81% 0, 85% 50%, 89% 25%, 93% 60%, 96% 20%, 100% 50%, 100% 100%, 95% 85%, 90% 100%, 84% 80%, 78% 100%, 70% 85%, 62% 100%, 54% 82%, 46% 100%, 38% 85%, 30% 100%, 22% 82%, 14% 100%, 7% 85%);
+    filter: drop-shadow(0 0 4px var(--cyan));
     pointer-events: none;
     z-index: 4;
   }
@@ -205,8 +203,9 @@
   border: 2px solid oklch(0.9 0.06 220 / .9);
   border-bottom-color: oklch(0.45 0.14 250);
   background:
-    linear-gradient(180deg, oklch(1 0 0 / .35), transparent 45%),
-    linear-gradient(160deg, color-mix(in oklab, var(--crystal) 40%, var(--deep)), var(--deep));
+    linear-gradient(180deg, oklch(1 0 0 / .4), transparent 45%),
+    linear-gradient(160deg, color-mix(in oklab, var(--crystal) 45%, transparent), oklch(0.16 0.07 258 / .9)),
+    url("./assets/ice-tex.jpg") center / 90px auto;
   box-shadow: 0 4px 0 var(--ice-depth-dark), 0 6px 12px color-mix(in oklab, var(--background) 80%, transparent),
     0 0 14px color-mix(in oklab, var(--cyan) 40%, transparent), inset 0 2px 0 oklch(1 0 0 / .6), inset 0 -3px 6px color-mix(in oklab, var(--background) 50%, transparent);
   transition: transform .3s var(--spring);
@@ -237,10 +236,10 @@
 
 @utility stone {
   background:
-    linear-gradient(180deg, oklch(0.9 0.04 230 / .25), transparent 25%),
-    radial-gradient(ellipse at 50% 40%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 65%),
-    radial-gradient(circle at 20% 80%, oklch(0.3 0.05 255) 0, transparent 45%),
-    linear-gradient(160deg, oklch(0.36 0.07 250), oklch(0.17 0.05 258));
+    linear-gradient(180deg, oklch(1 0 0 / .35), transparent 30%),
+    radial-gradient(ellipse at 50% 40%, color-mix(in oklab, var(--cyan) 35%, transparent), transparent 65%),
+    linear-gradient(160deg, oklch(0.45 0.14 240 / .75), oklch(0.18 0.08 258 / .9)),
+    url("./assets/ice-tex.jpg") center / 180px auto;
   border: 3px solid oklch(0.7 0.09 230);
   border-bottom-color: oklch(0.32 0.08 250);
   box-shadow: 0 7px 0 oklch(0.17 0.03 255), 0 14px 22px color-mix(in oklab, var(--background) 85%, transparent),
