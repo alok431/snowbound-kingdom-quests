@@ -38,13 +38,13 @@ function Games() {
       <div className="grid grid-cols-2 gap-3">
         {games.filter((g) => cat === "All" || g.c === cat).map((g) => (
           <article key={g.n} className="ice-panel snow-cap overflow-hidden p-1.5">
-            <div className="relative aspect-[4/3.4] overflow-hidden rounded-lg">
+            <div className="relative aspect-[4/3.4] overflow-hidden rounded-lg border-2 border-crystal/40 shadow-[inset_0_0_12px_oklch(0_0_0/0.5)]">
               <img src={g.img} alt={g.n} loading="lazy" className="h-full w-full object-cover transition duration-500 hover:scale-110" />
-              <div className="absolute right-1 top-1 rounded-md bg-background/80 px-1.5 py-0.5 text-xs"><Reward v={`+${g.r}`} /></div>
+              <div className="absolute right-1 top-1 rounded-lg border border-gold/50 bg-background/85 px-1.5 py-0.5 text-xs shadow-[0_2px_0_oklch(0_0_0/0.5)] backdrop-blur-sm"><Reward v={`+${g.r}`} /></div>
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
             </div>
             <div className="px-1 pb-1 pt-1 text-center">
-              <p className="font-display text-lg leading-tight">{g.n}</p>
+              <p className="text-3d text-lg leading-tight">{g.n}</p>
               <p className="text-xs text-cyan">{g.d}</p>
               <button className="btn-ice mt-2 w-full py-1.5 text-sm">Play & Earn</button>
             </div>
@@ -54,7 +54,7 @@ function Games() {
       <section className="ice-panel snow-cap relative h-24 overflow-hidden">
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_60%] opacity-60 brightness-50" />
         <div className="relative p-4">
-          <p className="font-display text-2xl">More Games</p>
+          <p className="text-3d text-2xl">More Games</p>
           <p className="text-ice/80">Coming Soon…</p>
         </div>
       </section>
